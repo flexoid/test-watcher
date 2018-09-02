@@ -15,6 +15,8 @@ ActiveRecord::Schema.define(version: 2018_08_26_153137) do
   create_table "test_cases", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.bigint "test_run_id"
+    t.string "status", limit: 16, collation: "latin1_swedish_ci"
+    t.float "duration"
     t.json "properties"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
