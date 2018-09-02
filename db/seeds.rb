@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-test_run = TestRun.create!(name: "Sample Test Run")
+test_run = TestRun.create!(uuid: SecureRandom.uuid, name: "Sample Test Run")
 
 test_run.test_cases.create!(name: "Index page has company logo")
 test_run.test_cases.create!(name: "Index page has link to about page")

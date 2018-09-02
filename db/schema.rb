@@ -12,18 +12,21 @@
 
 ActiveRecord::Schema.define(version: 2018_08_26_153137) do
 
-  create_table "test_cases", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "test_cases", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.bigint "test_run_id"
+    t.json "properties"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["test_run_id"], name: "index_test_cases_on_test_run_id"
   end
 
-  create_table "test_runs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "test_runs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "uuid", limit: 36, null: false, collation: "latin1_swedish_ci"
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["uuid"], name: "index_test_runs_on_uuid", unique: true
   end
 
   add_foreign_key "test_cases", "test_runs"
