@@ -23,6 +23,8 @@ class TestRun extends Component {
     const testCases = this.state.testCases.map((testCase, idx) =>
       <li key={testCase.id.toString()}>
         <p>{testCase.name}</p>
+        <p className="is-size-7">{testCase.duration} sec</p>
+        <p className="is-size-7">{testCase.status}</p>
       </li>
     );
 

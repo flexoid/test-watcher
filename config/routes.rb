@@ -5,5 +5,12 @@ Rails.application.routes.draw do
         resources :test_cases, only: [:index]
       end
     end
+
+    namespace :runner do
+      scope "/test_runs/:uuid" do
+        post :test_case_started, to: "test_runs#test_case_started"
+        post :test_case_finished, to: "test_runs#test_case_finished"
+      end
+    end
   end
 end

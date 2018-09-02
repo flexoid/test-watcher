@@ -17,7 +17,7 @@ class Home extends Component {
   render() {
     const listItems = this.state.testRuns.map((run) =>
       <li key={run.id.toString()}>
-        <p><Link to={`/runs/${run.id}`}>{run.name}</Link></p>
+        <p><Link to={`/runs/${run.id}`}>{run.id} {run.name}</Link></p>
         <p className="is-size-7">{moment(run.created_at).format()}</p>
       </li>
     );
