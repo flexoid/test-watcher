@@ -9,12 +9,7 @@ module Api
       end
 
       def call
-        self.test_case = find_test_case(params[:name])
-
-        unless test_case
-          Rails.logger.warn("Test case not found")
-          return
-        end
+        self.test_case = test_run.test_cases.find_by!(test_case_hash: params[:test_case_hash])
 
         test_case.status = params[:status]
         test_case.duration = params[:duration]
@@ -25,10 +20,6 @@ module Api
 
       attr_accessor :params
       attr_writer :test_run, :test_case
-
-      def find_test_case(name)
-        test_run.test_cases.find_by(name: name)
-      end
     end
   end
 end

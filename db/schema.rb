@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_26_153137) do
+ActiveRecord::Schema.define(version: 2018_09_06_215044) do
 
   create_table "test_cases", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "test_case_hash", limit: 32, null: false, collation: "latin1_swedish_ci"
     t.string "name"
     t.bigint "test_run_id"
     t.string "status", limit: 16, collation: "latin1_swedish_ci"
@@ -20,6 +21,7 @@ ActiveRecord::Schema.define(version: 2018_08_26_153137) do
     t.json "properties"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["test_run_id", "test_case_hash"], name: "index_test_cases_on_test_run_id_and_test_case_hash", unique: true
     t.index ["test_run_id"], name: "index_test_cases_on_test_run_id"
   end
 
@@ -31,5 +33,19 @@ ActiveRecord::Schema.define(version: 2018_08_26_153137) do
     t.index ["uuid"], name: "index_test_runs_on_uuid", unique: true
   end
 
+  create_table "test_steps", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "test_step_hash", limit: 32, null: false, collation: "latin1_swedish_ci"
+    t.string "name"
+    t.bigint "test_case_id"
+    t.string "status", limit: 16, collation: "latin1_swedish_ci"
+    t.float "duration"
+    t.json "properties"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["test_case_id", "test_step_hash"], name: "index_test_steps_on_test_case_id_and_test_step_hash", unique: true
+    t.index ["test_case_id"], name: "index_test_steps_on_test_case_id"
+  end
+
   add_foreign_key "test_cases", "test_runs"
+  add_foreign_key "test_steps", "test_cases"
 end

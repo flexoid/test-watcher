@@ -9,7 +9,7 @@ module Api
       end
 
       def call
-        test_run.test_cases.create!(name: params[:name])
+        test_run.test_cases.create!(test_case_hash: params[:test_case_hash], name: params[:name])
       end
 
       private

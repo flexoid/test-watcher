@@ -24,7 +24,7 @@ class Home extends Component {
 
     return (
       <div className="TestRuns column is-8">
-        <h2 class="subtitle">
+        <h2 className="subtitle">
           Test runs
         </h2>
 

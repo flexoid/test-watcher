@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from "axios";
 import moment from 'moment';
+import TestCase from './TestCase';
 
 class TestRun extends Component {
   constructor(props) {
@@ -21,17 +22,13 @@ class TestRun extends Component {
     if (!this.state.testRun) { return null; }
 
     const testCases = this.state.testCases.map((testCase, idx) =>
-      <li key={testCase.id.toString()}>
-        <p>{testCase.name}</p>
-        <p className="is-size-7">{testCase.duration} sec</p>
-        <p className="is-size-7">{testCase.status}</p>
-      </li>
+      <TestCase key={testCase.id.toString()} testCase={testCase} />
     );
 
     return (
       <div className="TestRun columns">
         <div className="column is-3">
-          <p className="is-size-5">{this.state.testRun.name}</p>
+          <p className="is-size-5">{this.state.testRun.id} {this.state.testRun.name}</p>
           <p className="is-size-7">{moment(this.state.testRun.created_at).format()}</p>
         </div>
 
