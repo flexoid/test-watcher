@@ -15,21 +15,15 @@ class Home extends Component {
   }
 
   render() {
-    const listItems = this.state.testRuns.map((run) =>
-      <li key={run.id.toString()}>
-        <p><Link to={`/runs/${run.id}`}>{run.id} {run.name}</Link></p>
-        <p className="is-size-7">{moment(run.created_at).format()}</p>
-      </li>
-    );
-
     return (
-      <div className="TestRuns column is-8">
-        <h2 className="subtitle">
-          Test runs
-        </h2>
-
-        <ul>{listItems}</ul>
-      </div>
+      <ul>
+        {this.state.testRuns.map(run =>
+          <li key={run.id.toString()}>
+            <p><Link to={`/runs/${run.id}`}>{run.id} {run.name}</Link></p>
+            <p className="is-size-7">{moment(run.created_at).format()}</p>
+          </li>
+        )}
+      </ul>
     );
   }
 }

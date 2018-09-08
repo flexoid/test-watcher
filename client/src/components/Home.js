@@ -1,11 +1,15 @@
-import React, { Component } from 'react';
-import TestRuns from './TestRuns';
+import React, { Component } from "react";
+import TestRunList from "./TestRunList";
 
 class Home extends Component {
   render() {
     return (
       <div className="Home columns">
-        <TestRuns />
+        <div className="TestRuns column is-8">
+          <h2 className="subtitle">Test runs</h2>
+
+          <TestRunList />
+        </div>
       </div>
     );
   }
