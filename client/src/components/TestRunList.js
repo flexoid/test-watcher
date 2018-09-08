@@ -14,7 +14,7 @@ class TestRunList extends Component {
   render() {
     return (
       <ul>
-        {this.props.testRuns.map(run =>
+        {this.props.testRuns.all.map(run =>
           <li key={run.id.toString()}>
             <p><Link to={`/runs/${run.id}`}>{run.id} {run.name}</Link></p>
             <p className="is-size-7">{moment(run.created_at).format()}</p>

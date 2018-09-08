@@ -66,7 +66,7 @@ class TestCase extends Component {
         <p>{this.props.testCase.name}</p>
         <p className="is-size-7">{this.props.testCase.duration} sec</p>
         <p className="is-size-7">{this.props.testCase.status}</p>
-        <a href="#" onClick={this.showSteps.bind(this)}>{this.state.showSteps ? "Hide" : "Show"} steps</a>
+        <a href="#toggle" onClick={this.showSteps.bind(this)}>{this.state.showSteps ? "Hide" : "Show"} steps</a>
 
         {stepsList}
       </li>
