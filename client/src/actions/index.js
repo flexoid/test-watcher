@@ -54,3 +54,34 @@ export const fetchTestCases = (testRunId) =>
       console.error(error)
     }
   }
+
+  export const REQUEST_TEST_STEPS = 'REQUEST_TEST_STEPS'
+  const requestTestSteps = (testCaseId) => ({
+    type: REQUEST_TEST_STEPS,
+    testCaseId
+  })
+
+  export const RECEIVE_TEST_STEPS = 'RECEIVE_TEST_STEPS'
+  const receiveTestSteps = (testCaseId, data) => ({
+    type: RECEIVE_TEST_STEPS,
+    testCaseId,
+    data
+  })
+
+  export const fetchTestSteps = (testCaseId) =>
+  async (dispatch) => {
+    dispatch(requestTestSteps(testCaseId))
+
+    try {
+      const response = await axios.get(`/api/v1/test_cases/${testCaseId}/test_steps`);
+      dispatch(receiveTestSteps(testCaseId, response.data))
+    } catch(error) {
+      console.error(error)
+    }
+  }
+
+export const TOGGLE_STEPS_FOR_TEST_CASE = 'TOGGLE_STEPS_FOR_TEST_CASE'
+export const toggleStepsForTestCase = (testCaseId) => ({
+  type: TOGGLE_STEPS_FOR_TEST_CASE,
+  testCaseId
+})

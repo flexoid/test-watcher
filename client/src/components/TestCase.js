@@ -2,39 +2,21 @@ import React, { Component } from 'react';
 import axios from "axios";
 
 class TestCase extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { showSteps: false, steps: [], stepsIsLoading: false }
-  }
-
-  async showSteps(e) {
-    e.preventDefault();
-
-    this.setState(state => {
-      let stepsIsLoading = false
-
-      if (!state.showSteps) {
-        stepsIsLoading = true
-
-        axios.get(`/api/v1/test_cases/${this.props.testCase.id}/test_steps`).then((response) => {
-          this.setState({stepsIsLoading: false, steps: response.data})
-        });
-      }
-
-      return {
-        showSteps: !state.showSteps,
-        stepsIsLoading: stepsIsLoading
-      }
-    })
+  showSteps(e) {
+    e.preventDefault()
+    this.props.toggleSteps()
   }
 
   render() {
+    const showSteps = this.props.currentTestRun.testCases[this.props.testCase.id] &&
+      this.props.currentTestRun.testCases[this.props.testCase.id].showSteps
+
     let stepsList;
-    if (this.state.stepsIsLoading) {
+    if (this.props.testSteps && this.props.testSteps.isFetching) {
       stepsList = <p>Loading...</p>
-    } else if (this.state.showSteps) {
+    } else if (showSteps) {
       stepsList =
-        this.state.steps.map((step) => {
+        this.props.testSteps.items.map((step) => {
           let table;
           const rows = step.properties.rows;
 
@@ -66,7 +48,7 @@ class TestCase extends Component {
         <p>{this.props.testCase.name}</p>
         <p className="is-size-7">{this.props.testCase.duration} sec</p>
         <p className="is-size-7">{this.props.testCase.status}</p>
-        <a href="#toggle" onClick={this.showSteps.bind(this)}>{this.state.showSteps ? "Hide" : "Show"} steps</a>
+        <a href="#toggle" onClick={this.showSteps.bind(this)}>{showSteps ? "Hide" : "Show"} steps</a>
 
         {stepsList}
       </li>

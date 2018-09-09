@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-import TestCase from './TestCase';
+import CurrentTestCase from '../containers/CurrentTestCase';
 
 class TestRun extends Component {
   componentDidMount() {
@@ -21,7 +21,7 @@ class TestRun extends Component {
       testCasesList =
         <ul>
           {testCases.items.map((testCase, idx) =>
-            <TestCase key={testCase.id.toString()} testCase={testCase} />
+            <CurrentTestCase key={testCase.id.toString()} testCaseId={testCase.id} />
           )}
         </ul>
     }

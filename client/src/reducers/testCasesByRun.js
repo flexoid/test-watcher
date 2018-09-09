@@ -4,13 +4,13 @@ const testCasesByRun = (state = {}, action) => {
   switch (action.type) {
     case REQUEST_TEST_CASES:
     case RECEIVE_TEST_CASES:
-      return { ...state, [action.testRunId]: testCaseByRun(state[action.testRunId], action) }
+      return { ...state, [action.testRunId]: testCaseForRun(state[action.testRunId], action) }
     default:
       return state
   }
 }
 
-const testCaseByRun = (state = { items: [], isFetching: false }, action) => {
+const testCaseForRun = (state = { items: [], isFetching: false }, action) => {
   switch (action.type) {
     case REQUEST_TEST_CASES:
       return { ...state, isFetching: true }
