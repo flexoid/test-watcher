@@ -1,31 +1,30 @@
 import React, { Component } from 'react';
-import { connect } from "react-redux"
-import axios from "axios";
 import moment from 'moment';
 import TestCase from './TestCase';
-import { selectCurrentTestRun, setCasesForTestRun } from '../actions'
 
 class TestRun extends Component {
-  async componentDidMount() {
-    const testRunId = parseInt(this.props.match.params.testRunId, 10);
-    this.props.dispatch(selectCurrentTestRun(testRunId));
-
-    const testCasesResponse = await axios.get(`/api/v1/test_runs/${testRunId}/test_cases`);
-
-    this.props.dispatch(setCasesForTestRun(testRunId, testCasesResponse.data));
+  componentDidMount() {
+    this.props.onMount()
   }
 
   render() {
-    const testRunId = this.props.testRuns.current;
-    const testRun = this.props.testRuns.items.find(run => run.id === testRunId);
+    const testRun = this.props.testRun
+    const testCases = this.props.testCases;
 
-    if (!testRun) { return null; }
+    if (!testRun || !testCases) {
+      return null
+    }
 
-    const testCases = this.props.testCases[testRunId] || [];
+    let testCasesList = <p>Loading steps...</p>
 
-    const testCasesList = testCases.map((testCase, idx) =>
-      <TestCase key={testCase.id.toString()} testCase={testCase} />
-    );
+    if (!testCases.isFetching) {
+      testCasesList =
+        <ul>
+          {testCases.items.map((testCase, idx) =>
+            <TestCase key={testCase.id.toString()} testCase={testCase} />
+          )}
+        </ul>
+    }
 
     return (
       <div className="TestRun columns">
@@ -36,13 +35,11 @@ class TestRun extends Component {
 
         <div className="column">
           <h2 className="subtitle">Test cases</h2>
-          <ul>{testCasesList}</ul>
+          {testCasesList}
         </div>
       </div>
     );
   }
 }
 
-export default connect(state =>
-  ({ testRuns: state.testRuns, testCases: state.testCases })
-)(TestRun);
+export default TestRun

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Home from './Home';
-import TestRun from './TestRun';
+import CurrentTestRun from '../containers/CurrentTestRun';
 import Header from './Header'
 
 class App extends Component {
@@ -14,7 +14,7 @@ class App extends Component {
           <section className="section">
             <div className="container">
               <Route exact path="/" component={Home} />
-              <Route path="/runs/:testRunId" component={TestRun} />
+              <Route path="/runs/:testRunId" component={CurrentTestRun} />
             </div>
           </section>
         </div>

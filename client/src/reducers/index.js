@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux'
 import testRuns from './testRuns'
-import testCases from './testCases'
+import testCasesByRun from './testCasesByRun'
 import entities from './entities'
 
 export default combineReducers({
   testRuns,
-  testCases,
+  testCasesByRun,
   entities
 })

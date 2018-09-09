@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import TestRunList from "./TestRunList";
+import VisibleTestRunList from "../containers/VisibleTestRunList"
 
 class Home extends Component {
   render() {
@@ -8,7 +8,7 @@ class Home extends Component {
         <div className="TestRuns column is-8">
           <h2 className="subtitle">Test runs</h2>
 
-          <TestRunList />
+          <VisibleTestRunList />
         </div>
       </div>
     );
