@@ -7,12 +7,18 @@ const currentTestRun = (state = { testCases: {} }, action) => {
         ...state,
         testCases: {
           ...state.testCases,
-          [action.testCaseId]: {
-            ...state.testCases[action.testCaseId],
-            showSteps: !(state.testCases[action.testCaseId] && state.testCases[action.testCaseId].showSteps)
-          }
+          [action.testCaseId]: testCasesForCurrentTestRun(state.testCases[action.testCaseId], action)
         }
       }
+    default:
+      return state
+  }
+}
+
+const testCasesForCurrentTestRun = (state = { showSteps: false }, action) => {
+  switch (action.type) {
+    case TOGGLE_STEPS_FOR_TEST_CASE:
+      return { ...state, showSteps: !state.showSteps }
     default:
       return state
   }

@@ -16,16 +16,17 @@ const mapStateToProps = (state, ownProps) => {
   return {
     testCase: state.entities.testCases[ownProps.testCaseId],
     testSteps: testSteps(ownProps.testCaseId, state),
-    currentTestRun: state.currentTestRun
+    currentTestCase: state.currentTestRun.testCases[ownProps.testCaseId]
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    toggleSteps: () => {
-      dispatch(toggleStepsForTestCase(ownProps.testCaseId))
+    toggleSteps: () =>
+      dispatch(toggleStepsForTestCase(ownProps.testCaseId)),
+
+    fetchSteps: () =>
       dispatch(fetchTestSteps(ownProps.testCaseId))
-    }
   }
 }
 

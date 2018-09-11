@@ -1,12 +1,5 @@
 import axios from "axios";
 
-export const SELECT_CURRENT_TEST_RUN = 'SELECT_CURRENT_TEST_RUN'
-
-export const selectCurrentTestRun = (id) => ({
-  type: SELECT_CURRENT_TEST_RUN,
-  id
-})
-
 export const REQUEST_TEST_RUNS = 'REQUEST_TEST_RUNS'
 const requestTestRuns = () => ({
   type: REQUEST_TEST_RUNS
@@ -79,6 +72,13 @@ export const fetchTestCases = (testRunId) =>
       console.error(error)
     }
   }
+
+  export const SELECT_CURRENT_TEST_RUN = 'SELECT_CURRENT_TEST_RUN'
+
+  export const selectCurrentTestRun = (id) => ({
+    type: SELECT_CURRENT_TEST_RUN,
+    id
+  })
 
 export const TOGGLE_STEPS_FOR_TEST_CASE = 'TOGGLE_STEPS_FOR_TEST_CASE'
 export const toggleStepsForTestCase = (testCaseId) => ({
