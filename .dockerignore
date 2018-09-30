@@ -1,0 +1,7 @@
+.git
+.vscode
+tmp
+log
+
+client/node_modules
+client/build

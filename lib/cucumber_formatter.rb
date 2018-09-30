@@ -4,6 +4,10 @@ require "securerandom"
 require "cucumber/formatter/json"
 
 class TestWatcherFormatter < Cucumber::Formatter::Json
+  class << self
+    attr_accessor :backend_url
+  end
+
   def initialize(config)
     @feature_hashes = []
     @step_or_hook_hash = {}
@@ -82,13 +86,15 @@ class TestWatcherFormatter < Cucumber::Formatter::Json
   private
 
   def send_body(body, endpoint)
+    raise "`#{self.class}.backend_url` is not specified" unless self.class.backend_url
+
     HTTParty.post(
-      "http://localhost:31001/api/runner/test_runs/#{@test_run_uuid}/#{endpoint}",
+      "#{self.class.backend_url}/api/runner/test_runs/#{@test_run_uuid}/#{endpoint}",
       body: body.to_json,
       headers: { "Content-Type" => "application/json" }
     )
 
-    STDOUT.puts body.inspect
+    # STDOUT.puts body.inspect
   end
 
   def step_hash_string(step_hash)

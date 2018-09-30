@@ -1,0 +1,30 @@
+version: "3.7"
+
+services:
+  web:
+    build:
+      context: ../
+      dockerfile: build/Dockerfile
+    ports:
+      - "31100:3000"
+    environment:
+      DATABASE_URL: "mysql2://test-watcher:test-watcher@db:3306/test-watcher_production"
+      REDIS_URL: "redis://redis:6379"
+      RAILS_LOG_TO_STDOUT: "yes"
+      RAILS_SERVE_STATIC_FILES: "yes"
+      SECRET_KEY_BASE: "36fdcdd81abe3309e568ad5902936d454b03f626314ecaeaee0221071942b60baa6439192de42d4765d681da9ff32e98b8965cedc6eb117db8efe45f6d2c67d3"
+    command: ./bin/rails s
+
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_USER: test-watcher
+      MYSQL_PASSWORD: test-watcher
+      MYSQL_DATABASE: test-watcher_production
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+    restart: always
+
+  redis:
+    image: redis
+    restart: always

@@ -1,7 +1,7 @@
 import ActionCable from 'actioncable'
 
 const websocketsMiddleware = (store) => {
-  const cable = ActionCable.createConsumer("ws://localhost:31000/cable")
+  const cable = ActionCable.createConsumer()
 
   cable.subscriptions.create("LiveChannel", {
     "received": (action) => {
