@@ -1,6 +1,6 @@
 class Api::V1::TestRunsController < ApplicationController
   def index
-    test_runs = TestRun.order(:id)
+    test_runs = TestRun.order(id: :desc)
     render json: test_runs
   end
 

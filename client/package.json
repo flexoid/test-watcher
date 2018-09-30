@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "actioncable": "^5.2.1",
     "axios": "^0.18.0",
     "bulma": "^0.7.1",
     "moment": "^2.22.2",
@@ -24,6 +25,10 @@
   "proxy": {
     "/api": {
       "target": "http://localhost:31001"
+    },
+    "/cable": {
+      "target": "ws://localhost:31001",
+      "ws": true
     }
   }
 }

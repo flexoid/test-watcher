@@ -9,10 +9,11 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './reducers'
 import registerServiceWorker from './registerServiceWorker';
 import { fetchTestRuns } from './actions'
+import websocketsMiddleware from './middleware/websockets'
 
 const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(thunk))
+  composeWithDevTools(applyMiddleware(thunk, websocketsMiddleware))
 )
 
 store.dispatch(fetchTestRuns())

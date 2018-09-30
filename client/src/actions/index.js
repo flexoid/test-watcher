@@ -85,3 +85,11 @@ export const toggleStepsForTestCase = (testCaseId) => ({
   type: TOGGLE_STEPS_FOR_TEST_CASE,
   testCaseId
 })
+
+export const TEST_RUN_STARTED = 'TEST_RUN_STARTED'
+
+export const TEST_CASE_STARTED = 'TEST_CASE_STARTED'
+export const TEST_CASE_FINISHED = 'TEST_CASE_FINISHED'
+
+export const TEST_STEP_STARTED = 'TEST_STEP_STARTED'
+export const TEST_STEP_FINISHED = 'TEST_STEP_FINISHED'

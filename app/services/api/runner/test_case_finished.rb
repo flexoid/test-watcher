@@ -14,12 +14,21 @@ module Api
         test_case.status = params[:status]
         test_case.duration = params[:duration]
         test_case.save!
+
+        notify_client
       end
 
       private
 
       attr_accessor :params
       attr_writer :test_run, :test_case
+
+      def notify_client
+        ActionCable.server.broadcast(LiveChannel::LIVE, {
+          type: "TEST_CASE_FINISHED",
+          data: test_case.as_json,
+        })
+      end
     end
   end
 end

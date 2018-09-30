@@ -20,7 +20,8 @@ class Api::Runner::TestRunsController < ApplicationController
   private
 
   def set_test_run
-    self.test_run = Api::Runner::TestRunLoader.find_or_create_test_run(params[:uuid])
+    self.test_run = Api::Runner::TestRunLoader.new
+      .find_or_create_test_run(params[:uuid])
   end
 
   attr_accessor :test_run
