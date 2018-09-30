@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import moment from 'moment';
+import Moment from 'react-moment';
 
 class TestRunList extends Component {
   render() {
@@ -13,7 +13,15 @@ class TestRunList extends Component {
         {this.props.testRuns.map(testRun =>
           <li key={testRun.id.toString()}>
             <p><Link to={`/runs/${testRun.id}`}>{testRun.id} {testRun.name}</Link></p>
-            <p className="is-size-7">{moment(testRun.created_at).format()}</p>
+            {testRun.finished_at ? (
+              <p className="is-size-7">
+                Finished <Moment fromNow>{testRun.finished_at}</Moment>
+              </p>
+            ) : (
+              <p className="is-size-7">
+                Running for <Moment fromNow ago>{testRun.created_at}</Moment>
+              </p>
+            )}
           </li>
         )}
       </ul>

@@ -17,6 +17,10 @@ class Api::Runner::TestRunsController < ApplicationController
     Api::Runner::TestStepFinished.new(test_run, params.to_unsafe_h).call
   end
 
+  def test_run_finished
+    Api::Runner::TestRunFinished.new(test_run, params.to_unsafe_h).call
+  end
+
   private
 
   def set_test_run

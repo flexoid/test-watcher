@@ -5,6 +5,9 @@ class CreateTestRuns < ActiveRecord::Migration[5.2]
       t.string :name
 
       t.timestamps
+
+      t.datetime :finished_at
+
       t.index :uuid, unique: true
     end
   end

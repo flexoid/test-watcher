@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 2018_09_06_215044) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "finished_at"
     t.index ["uuid"], name: "index_test_runs_on_uuid", unique: true
   end
 

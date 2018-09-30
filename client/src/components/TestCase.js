@@ -32,7 +32,7 @@ class TestCase extends Component {
     return (
       <li>
         <p>{this.props.testCase.name}</p>
-        <p className="is-size-7">{this.props.testCase.duration} sec</p>
+        <p className="is-size-7">{Math.round(this.props.testCase.duration)} sec</p>
         <p className="is-size-7">{this.props.testCase.status}</p>
 
         <a href="#toggle" onClick={this.showSteps.bind(this)}>

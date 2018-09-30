@@ -3,7 +3,7 @@ require "securerandom"
 
 require "cucumber/formatter/json"
 
-class CustomFormatter < Cucumber::Formatter::Json
+class TestWatcherFormatter < Cucumber::Formatter::Json
   def initialize(config)
     @feature_hashes = []
     @step_or_hook_hash = {}
@@ -76,7 +76,7 @@ class CustomFormatter < Cucumber::Formatter::Json
   end
 
   def on_test_run_finished(event)
-    # binding.pry
+    send_body({}, "test_run_finished")
   end
 
   private

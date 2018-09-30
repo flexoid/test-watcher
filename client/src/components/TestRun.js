@@ -30,7 +30,6 @@ class TestRun extends Component {
       <div className="TestRun columns">
         <div className="column is-3">
           <p className="is-size-5">{testRun.id} {testRun.name}</p>
-          <p className="is-size-7">{moment(testRun.created_at).format()}</p>
         </div>
 
         <div className="column">
