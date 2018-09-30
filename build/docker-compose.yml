@@ -13,6 +13,7 @@ services:
       RAILS_LOG_TO_STDOUT: "yes"
       RAILS_SERVE_STATIC_FILES: "yes"
       SECRET_KEY_BASE: "36fdcdd81abe3309e568ad5902936d454b03f626314ecaeaee0221071942b60baa6439192de42d4765d681da9ff32e98b8965cedc6eb117db8efe45f6d2c67d3"
+      SENTRY_DSN: "https://69c776b30d7e4ce9b2d6a4e395ab1694:1922a80d95c4413fa6c4a321a209b28b@sentry.io/1291925"
     command: ./bin/rails s
 
   db:
