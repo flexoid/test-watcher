@@ -2,8 +2,7 @@ import {
   RECEIVE_TEST_RUNS,
   RECEIVE_TEST_CASES,
   RECEIVE_TEST_STEPS,
-  TEST_RUN_STARTED,
-  TEST_RUN_FINISHED,
+  TEST_RUN_UPDATED,
   TEST_CASE_STARTED,
   TEST_CASE_FINISHED,
   TEST_STEP_STARTED,
@@ -18,8 +17,7 @@ const entities = (state = { testRuns: {}, testCases: {}, testSteps: {} }, action
   switch (action.type) {
     case RECEIVE_TEST_RUNS:
       return merge({}, state, { testRuns: entitiesById(action.data) })
-    case TEST_RUN_STARTED:
-    case TEST_RUN_FINISHED:
+    case TEST_RUN_UPDATED:
       return merge({}, state, { testRuns: { [action.data.id]: action.data } })
     case RECEIVE_TEST_CASES:
       return merge({}, state, { testCases: entitiesById(action.data) })

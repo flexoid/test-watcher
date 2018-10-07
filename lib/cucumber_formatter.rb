@@ -4,6 +4,8 @@ require "securerandom"
 require "cucumber/formatter/json"
 
 class TestWatcherFormatter < Cucumber::Formatter::Json
+  attr_accessor :project_uuid, :test_run_uuid
+
   class << self
     attr_accessor :backend_url
   end
@@ -17,70 +19,66 @@ class TestWatcherFormatter < Cucumber::Formatter::Json
     config.on_event :test_step_finished, &method(:on_test_step_finished)
     config.on_event :test_run_finished, &method(:on_test_run_finished)
 
-    @test_run_uuid = SecureRandom.uuid
+    self.project_uuid = "78f46706-2157-4635-ad95-f8ea7fca56cb"
+    self.test_run_uuid = SecureRandom.uuid
   end
 
   def on_test_case_started(event)
     super
-    name = @test_case_hash[:name]
 
     body = {
-      test_case_hash: Digest::MD5.hexdigest(name),
-      name: name
+      feature_hash_id: Digest::MD5.hexdigest(current_feature[:id]),
+      feature_name: current_feature[:name],
+      hash_id: Digest::MD5.hexdigest(@test_case_hash[:id]),
+      name: @test_case_hash[:name],
     }
 
-    send_body(body, "test_case_started")
+    send_body(body, "/test_cases")
   end
 
   def on_test_case_finished(event)
     super
-    name = @test_case_hash[:name]
 
     body = {
-      test_case_hash: Digest::MD5.hexdigest(name),
-      duration: event.result.duration.nanoseconds / 1_000_000_000.0,
+      feature_hash_id: Digest::MD5.hexdigest(current_feature[:id]),
+      hash_id: Digest::MD5.hexdigest(@test_case_hash[:id]),
       status: event.result.to_sym.to_s
     }
 
-    send_body(body, "test_case_finished")
+    send_body(body, "/test_cases")
   end
 
   def on_test_step_started(event)
     super
     return unless @step_hash
 
-    test_case_name = @test_case_hash[:name]
-    test_step_name = @step_hash[:name]
-
     body = {
-      test_case_hash: Digest::MD5.hexdigest(test_case_name),
-      test_step_hash: step_hash_string(@step_hash),
-      name: test_step_name,
+      feature_hash_id: Digest::MD5.hexdigest(current_feature[:id]),
+      test_case_hash_id: Digest::MD5.hexdigest(@test_case_hash[:id]),
+      hash_id: step_hash_string(@test_case_hash, @step_hash),
+      name: @step_hash[:name],
       properties: @step_hash
     }
 
-    send_body(body, "test_step_started")
+    send_body(body, "/test_steps")
   end
 
   def on_test_step_finished(event)
     super
     return unless @step_hash
 
-    test_case_name = @test_case_hash[:name]
-    test_step_name = @step_hash[:name]
-
     body = {
-      test_case_hash: Digest::MD5.hexdigest(test_case_name),
-      test_step_hash: step_hash_string(@step_hash),
-      duration: @step_hash[:result][:duration] / 1_000_000_000.0,
-      status: @step_hash[:result][:status].to_s
+      feature_hash_id: Digest::MD5.hexdigest(current_feature[:id]),
+      test_case_hash_id: Digest::MD5.hexdigest(@test_case_hash[:id]),
+      hash_id: step_hash_string(@test_case_hash, @step_hash),
+      status: @step_hash[:result][:status].to_s,
     }
 
-    send_body(body, "test_step_finished")
+    send_body(body, "/test_steps")
   end
 
   def on_test_run_finished(event)
-    send_body({}, "test_run_finished")
+    send_body({ status: "finished" }, "")
   end
 
   private
@@ -89,7 +87,7 @@ class TestWatcherFormatter < Cucumber::Formatter::Json
     raise "`#{self.class}.backend_url` is not specified" unless self.class.backend_url
 
     HTTParty.post(
-      "#{self.class.backend_url}/api/runner/test_runs/#{@test_run_uuid}/#{endpoint}",
+      "#{self.class.backend_url}/api/ingest/#{project_uuid}/test_runs/#{test_run_uuid}#{endpoint}",
       body: body.to_json,
       headers: { "Content-Type" => "application/json" }
     )
@@ -97,8 +95,8 @@ class TestWatcherFormatter < Cucumber::Formatter::Json
     # STDOUT.puts body.inspect
   end
 
-  def step_hash_string(step_hash)
-    Digest::MD5.hexdigest("#{@step_hash[:name]}:#{@step_hash[:line]}")
+  def step_hash_string(test_case_hash, step_hash)
+    Digest::MD5.hexdigest("#{test_case_hash[:id]}:#{step_hash[:line]}")
   end
 end
 

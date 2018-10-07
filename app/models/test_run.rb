@@ -1,3 +1,4 @@
 class TestRun < ApplicationRecord
-  has_many :test_cases, dependent: :destroy
+  belongs_to :project
+  has_many :features, dependent: :destroy
 end

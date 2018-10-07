@@ -17,5 +17,13 @@ Rails.application.routes.draw do
         post :test_step_finished, to: "test_runs#test_step_finished"
       end
     end
+
+    namespace :ingest do
+      scope "/:project_uuid/test_runs/:test_run_uuid" do
+        post :test_runs, path: "", to: "test_runs#test_runs"
+        post :test_cases, to: "test_runs#test_cases"
+        post :test_steps, to: "test_runs#test_steps"
+      end
+    end
   end
 end

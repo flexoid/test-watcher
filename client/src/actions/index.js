@@ -86,8 +86,7 @@ export const toggleStepsForTestCase = (testCaseId) => ({
   testCaseId
 })
 
-export const TEST_RUN_STARTED = 'TEST_RUN_STARTED'
-export const TEST_RUN_FINISHED = 'TEST_RUN_FINISHED'
+export const TEST_RUN_UPDATED = 'TEST_RUN_UPDATED'
 
 export const TEST_CASE_STARTED = 'TEST_CASE_STARTED'
 export const TEST_CASE_FINISHED = 'TEST_CASE_FINISHED'
