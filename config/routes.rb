@@ -8,16 +8,6 @@ Rails.application.routes.draw do
       end
     end
 
-    namespace :runner do
-      scope "/test_runs/:uuid" do
-        post :test_run_finished, to: "test_runs#test_run_finished"
-        post :test_case_started, to: "test_runs#test_case_started"
-        post :test_case_finished, to: "test_runs#test_case_finished"
-        post :test_step_started, to: "test_runs#test_step_started"
-        post :test_step_finished, to: "test_runs#test_step_finished"
-      end
-    end
-
     namespace :ingest do
       scope "/:project_uuid/test_runs/:test_run_uuid" do
         post :test_runs, path: "", to: "test_runs#test_runs"
