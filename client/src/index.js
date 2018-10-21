@@ -8,15 +8,18 @@ import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './reducers'
 import registerServiceWorker from './registerServiceWorker';
-import { fetchTestRuns } from './actions'
+import { fetchProjects } from './actions'
 import websocketsMiddleware from './middleware/websockets'
+
+import 'font-awesome/css/font-awesome.min.css';
+import "./index.css"
 
 const store = createStore(
   rootReducer,
   composeWithDevTools(applyMiddleware(thunk, websocketsMiddleware))
 )
 
-store.dispatch(fetchTestRuns())
+store.dispatch(fetchProjects())
 
 render(
   <Provider store={store}>

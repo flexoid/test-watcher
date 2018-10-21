@@ -1,14 +1,14 @@
 import React, { Component } from "react";
-import VisibleTestRunList from "../containers/VisibleTestRunList"
+import ProjectVisibleList from "../containers/project/VisibleList"
 
 class Home extends Component {
   render() {
     return (
       <div className="Home columns">
-        <div className="TestRuns column is-8">
-          <h2 className="subtitle">Test runs</h2>
+        <div className="TestRuns column is-12">
+          <h1 className="title">Projects</h1>
 
-          <VisibleTestRunList />
+          <ProjectVisibleList />
         </div>
       </div>
     );

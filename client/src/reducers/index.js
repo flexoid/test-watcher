@@ -1,14 +1,16 @@
 import { combineReducers } from 'redux'
 import testRuns from './testRuns'
-import testCasesByRun from './testCasesByRun'
+import featuresByRun from './featuresByRun'
+import testCasesByFeature from './testCasesByFeature'
 import testStepsByCase from './testStepsByCase'
-import currentTestRun from './currentTestRun'
 import entities from './entities'
+import project from './project'
 
 export default combineReducers({
   testRuns,
-  testCasesByRun,
+  featuresByRun,
+  testCasesByFeature,
   testStepsByCase,
-  currentTestRun,
-  entities
+  entities,
+  project,
 })

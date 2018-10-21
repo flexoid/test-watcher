@@ -1,16 +1,16 @@
 class Api::V1::TestCasesController < ApplicationController
-  before_action :set_test_run, only: :index
+  before_action :set_feature, only: :index
 
   def index
-    test_cases = test_run.test_cases.order(:id)
+    test_cases = feature.test_cases.order(:id)
     render json: test_cases
   end
 
   private
 
-  attr_accessor :test_run
+  attr_accessor :feature
 
-  def set_test_run
-    self.test_run = TestRun.find(params[:test_run_id])
+  def set_feature
+    self.feature = Feature.find(params[:feature_id])
   end
 end

@@ -1,95 +1,93 @@
 import axios from "axios";
 
-export const REQUEST_TEST_RUNS = 'REQUEST_TEST_RUNS'
-const requestTestRuns = () => ({
-  type: REQUEST_TEST_RUNS
-})
+export const FETCH_PROJECTS_REQUEST = 'FETCH_PROJECTS_REQUEST'
+export const FETCH_PROJECTS_SUCCESS = 'FETCH_PROJECTS_SUCCESS'
+export const FETCH_PROJECTS_FAILURE = 'FETCH_PROJECTS_FAILURE'
 
-export const RECEIVE_TEST_RUNS = 'RECEIVE_TEST_RUNS'
-const receiveTestRuns = (data) => ({
-  type: RECEIVE_TEST_RUNS,
-  data
-})
-
-export const fetchTestRuns = () =>
+export const fetchProjects = () =>
   async (dispatch) => {
-    dispatch(requestTestRuns())
+    dispatch({ type: FETCH_PROJECTS_REQUEST })
 
     try {
-      const response = await axios.get("/api/v1/test_runs")
-      dispatch(receiveTestRuns(response.data))
+      const response = await axios.get("/api/v1/projects")
+      dispatch({ type: FETCH_PROJECTS_SUCCESS, data: response.data })
     } catch(error) {
-      console.error(error)
+      dispatch({ type: FETCH_PROJECTS_FAILURE, error: error })
     }
   }
 
-export const REQUEST_TEST_CASES = 'REQUEST_TEST_CASES'
-const requestTestCases = (testRunId) => ({
-  type: REQUEST_TEST_CASES,
-  testRunId
-})
+export const FETCH_TEST_RUNS_REQUEST = 'FETCH_TEST_RUNS_REQUEST'
+export const FETCH_TEST_RUNS_SUCCESS = 'FETCH_TEST_RUNS_SUCCESS'
+export const FETCH_TEST_RUNS_FAILURE = 'FETCH_TEST_RUNS_FAILURE'
 
-export const RECEIVE_TEST_CASES = 'RECEIVE_TEST_CASES'
-const receiveTestCases = (testRunId, data) => ({
-  type: RECEIVE_TEST_CASES,
-  testRunId,
-  data
-})
-
-export const fetchTestCases = (testRunId) =>
+export const fetchTestRuns = (projectId) =>
   async (dispatch) => {
-    dispatch(requestTestCases(testRunId))
+    dispatch({ type: FETCH_TEST_RUNS_REQUEST, projectId })
 
     try {
-      const response = await axios.get(`/api/v1/test_runs/${testRunId}/test_cases`);
-      dispatch(receiveTestCases(testRunId, response.data))
+      const response = await axios.get(`/api/v1/projects/${projectId}/test_runs`)
+      dispatch({ type: FETCH_TEST_RUNS_SUCCESS, projectId, data: response.data })
     } catch(error) {
-      console.error(error)
+      dispatch({ type: FETCH_TEST_RUNS_FAILURE, projectId, error: error })
     }
   }
 
-  export const REQUEST_TEST_STEPS = 'REQUEST_TEST_STEPS'
-  const requestTestSteps = (testCaseId) => ({
-    type: REQUEST_TEST_STEPS,
-    testCaseId
-  })
+export const FETCH_FEATURES_REQUEST = 'FETCH_FEATURES_REQUEST'
+export const FETCH_FEATURES_SUCCESS = 'FETCH_FEATURES_SUCCESS'
+export const FETCH_FEATURES_FAILURE = 'FETCH_FEATURES_FAILURE'
 
-  export const RECEIVE_TEST_STEPS = 'RECEIVE_TEST_STEPS'
-  const receiveTestSteps = (testCaseId, data) => ({
-    type: RECEIVE_TEST_STEPS,
-    testCaseId,
-    data
-  })
-
-  export const fetchTestSteps = (testCaseId) =>
+export const fetchFeatures = (testRunId) =>
   async (dispatch) => {
-    dispatch(requestTestSteps(testCaseId))
+    dispatch({ type: FETCH_FEATURES_REQUEST, testRunId })
 
     try {
-      const response = await axios.get(`/api/v1/test_cases/${testCaseId}/test_steps`);
-      dispatch(receiveTestSteps(testCaseId, response.data))
+      const response = await axios.get(`/api/v1/test_runs/${testRunId}/features`)
+      dispatch({ type: FETCH_FEATURES_SUCCESS, testRunId, data: response.data })
     } catch(error) {
-      console.error(error)
+      dispatch({ type: FETCH_FEATURES_FAILURE, testRunId, error: error })
     }
   }
 
-  export const SELECT_CURRENT_TEST_RUN = 'SELECT_CURRENT_TEST_RUN'
+export const FETCH_TEST_CASES_REQUEST = 'FETCH_TEST_CASES_REQUEST'
+export const FETCH_TEST_CASES_SUCCESS = 'FETCH_TEST_CASES_SUCCESS'
+export const FETCH_TEST_CASES_FAILURE = 'FETCH_TEST_CASES_FAILURE'
 
-  export const selectCurrentTestRun = (id) => ({
-    type: SELECT_CURRENT_TEST_RUN,
-    id
-  })
+export const fetchTestCases = (featureId) =>
+  async (dispatch) => {
+    dispatch({ type: FETCH_TEST_CASES_REQUEST, featureId })
 
-export const TOGGLE_STEPS_FOR_TEST_CASE = 'TOGGLE_STEPS_FOR_TEST_CASE'
-export const toggleStepsForTestCase = (testCaseId) => ({
-  type: TOGGLE_STEPS_FOR_TEST_CASE,
-  testCaseId
+    try {
+      const response = await axios.get(`/api/v1/features/${featureId}/test_cases`)
+      dispatch({ type: FETCH_TEST_CASES_SUCCESS, featureId, data: response.data })
+    } catch(error) {
+      dispatch({ type: FETCH_TEST_CASES_FAILURE, error: error })
+    }
+  }
+
+export const FETCH_TEST_STEPS_REQUEST = 'FETCH_TEST_STEPS_REQUEST'
+export const FETCH_TEST_STEPS_SUCCESS = 'FETCH_TEST_STEPS_SUCCESS'
+export const FETCH_TEST_STEPS_FAILURE = 'FETCH_TEST_STEPS_FAILURE'
+
+export const fetchTestSteps = (testCaseId) =>
+  async (dispatch) => {
+    dispatch({ type: FETCH_TEST_STEPS_REQUEST, testCaseId })
+
+    try {
+      const response = await axios.get(`/api/v1/test_cases/${testCaseId}/test_steps`)
+      dispatch({ type: FETCH_TEST_STEPS_SUCCESS, testCaseId, data: response.data })
+    } catch(error) {
+      dispatch({ type: FETCH_TEST_STEPS_FAILURE, error: error })
+    }
+  }
+
+export const SELECT_CURRENT_TEST_RUN = 'SELECT_CURRENT_TEST_RUN'
+
+export const selectCurrentTestRun = (id) => ({
+  type: SELECT_CURRENT_TEST_RUN,
+  id
 })
 
-export const TEST_RUN_UPDATED = 'TEST_RUN_UPDATED'
-
-export const TEST_CASE_STARTED = 'TEST_CASE_STARTED'
-export const TEST_CASE_FINISHED = 'TEST_CASE_FINISHED'
-
-export const TEST_STEP_STARTED = 'TEST_STEP_STARTED'
-export const TEST_STEP_FINISHED = 'TEST_STEP_FINISHED'
+export const TEST_RUN_UPDATED  = 'TEST_RUN_UPDATED'
+export const FEATURE_UPDATED   = 'FEATURE_UPDATED'
+export const TEST_CASE_UPDATED = 'TEST_CASE_UPDATED'
+export const TEST_STEP_UPDATED = 'TEST_STEP_UPDATED'

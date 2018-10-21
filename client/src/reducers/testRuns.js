@@ -1,16 +1,19 @@
 import {
-  REQUEST_TEST_RUNS,
-  RECEIVE_TEST_RUNS,
+  FETCH_TEST_RUNS_REQUEST,
+  FETCH_TEST_RUNS_SUCCESS,
+  FETCH_TEST_RUNS_FAILURE,
   SELECT_CURRENT_TEST_RUN,
   TEST_RUN_UPDATED,
 } from '../actions'
 
 const testRuns = (state = { items: [], isFetching: false }, action) => {
   switch (action.type) {
-    case REQUEST_TEST_RUNS:
+    case FETCH_TEST_RUNS_REQUEST:
       return { ...state, isFetching: true }
-    case RECEIVE_TEST_RUNS:
+    case FETCH_TEST_RUNS_SUCCESS:
       return { ...state, items: action.data.map((testRun) => testRun.id), isFetching: false }
+    case FETCH_TEST_RUNS_FAILURE:
+      return { ...state, isFetching: false, error: action.error }
     case SELECT_CURRENT_TEST_RUN:
       return { ...state, current: action.id }
     case TEST_RUN_UPDATED:

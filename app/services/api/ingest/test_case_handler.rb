@@ -39,7 +39,6 @@ module Api
       def notify_client
         ActionCable.server.broadcast(LiveChannel::LIVE, {
           type: "TEST_CASE_UPDATED",
-          testRunId: test_run.id,
           featureId: feature.id,
           data: test_case.as_json,
         })

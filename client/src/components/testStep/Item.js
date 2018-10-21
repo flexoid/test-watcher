@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class TestStep extends Component {
   render() {
-    const step = this.props.step
+    const step = this.props.testStep
 
     let dataTable;
     const rows = step.properties.rows;

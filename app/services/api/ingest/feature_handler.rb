@@ -17,6 +17,7 @@ module Api
         feature.name = params[:feature_name] if params[:feature_name]
 
         feature.save!
+        notify_client
 
         feature
       rescue ActiveRecord::RecordNotUnique
@@ -27,6 +28,14 @@ module Api
       private
 
       attr_writer :test_run, :params, :feature
+
+      def notify_client
+        ActionCable.server.broadcast(LiveChannel::LIVE, {
+          type: "FEATURE_UPDATED",
+          testRunId: test_run.id,
+          data: feature.as_json,
+        })
+      end
     end
   end
 end

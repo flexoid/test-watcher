@@ -12,7 +12,7 @@ class TestRunList extends Component {
       <ul>
         {this.props.testRuns.map(testRun =>
           <li key={testRun.id.toString()}>
-            <p><Link to={`/runs/${testRun.id}`}>{testRun.id} {testRun.name}</Link></p>
+            <p><Link to={`/projects/1/runs/${testRun.id}`}>Test Run {testRun.id}</Link></p>
             {testRun.finished_at ? (
               <p className="is-size-7">
                 Finished <Moment fromNow>{testRun.finished_at}</Moment>

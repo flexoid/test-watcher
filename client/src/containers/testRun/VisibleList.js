@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import TestRunList from "../components/TestRunList";
+import TestRunList from "../../components/testRun/List";
 
 const mapStateToProps = state => {
   return {
@@ -7,9 +7,6 @@ const mapStateToProps = state => {
     isFetching: state.testRuns.isFetching
   }
 }
-
-// const mapDispatchToProps = (dispatch, ownProps) => {
-// }
 
 const VisibleTestRunList = connect(
   mapStateToProps

@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      resources :test_runs, only: [:index, :show], shallow: true do
-        resources :test_cases, only: [:index] do
-          resources :test_steps, only: [:index]
+      resources :projects, only: [:index, :show], shallow: true do
+        resources :test_runs, only: [:index, :show] do
+          resources :features, only: [:index] do
+            resources :test_cases, only: [:index] do
+              resources :test_steps, only: [:index]
+            end
+          end
         end
       end
     end
