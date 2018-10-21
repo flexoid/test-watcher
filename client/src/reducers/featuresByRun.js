@@ -28,7 +28,7 @@ const featuresForRun = (state = { items: [], isFetching: false }, action) => {
     case FEATURE_UPDATED:
       let items = state.items
       if (items.indexOf(action.data.id) === -1) {
-        items = [action.data.id, ...state.items]
+        items = [...state.items, action.data.id]
       }
 
       return { ...state, items: items }

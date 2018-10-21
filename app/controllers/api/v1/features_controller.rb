@@ -2,7 +2,7 @@ class Api::V1::FeaturesController < ApplicationController
   before_action :set_test_run
 
   def index
-    render json: test_run.features.all
+    render json: test_run.features.order(:id)
   end
 
   private
