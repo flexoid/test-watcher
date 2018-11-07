@@ -1,3 +1,8 @@
 .FeatureList > .columns {
   margin: 3px 0;
 }
+
+.testCasesModal .modal-card-title {
+  flex-shrink: 1;
+  text-align: center;
+}

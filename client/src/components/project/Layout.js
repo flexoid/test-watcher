@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route } from "react-router-dom";
 import CurrentHome from "../../containers/project/CurrentHome"
-import TestRunCurrentHome from "../../containers/testRun/CurrentHome"
+import TestRunCurrent from "../../containers/testRun/Current"
 
 class ProjectLayout extends Component {
   render() {
@@ -13,7 +13,7 @@ class ProjectLayout extends Component {
       (props) => <ComponentWithProject project={this.props.project} {...props} />
 
     return <div className="ProjectLayout">
-      <Route path={`${this.props.match.url}/runs/:testRunId`} render={withProject(TestRunCurrentHome)} />
+      <Route path={`${this.props.match.url}/runs/:testRunId`} render={withProject(TestRunCurrent)} />
       <Route exact path={this.props.match.url} render={withProject(CurrentHome)} />
     </div>
   }

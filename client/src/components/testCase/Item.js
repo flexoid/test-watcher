@@ -33,7 +33,7 @@ class TestCaseList extends Component {
         </div>
       </div>
 
-      <div className={"modal" + (this.state.displaySteps ? " is-active" : "")}>
+      <div className={"testCasesModal modal" + (this.state.displaySteps ? " is-active" : "")}>
         <div className="modal-background" onClick={this.toggleSteps}></div>
         <div className="modal-card">
           <header className="modal-card-head">

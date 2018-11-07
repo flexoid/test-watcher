@@ -1,22 +1,16 @@
 import React, { Component } from 'react';
-import FeatureList from '../feature/List'
 
-class TestRun extends Component {
+class TestRunHome extends Component {
   render() {
-    const testRun = this.props.testRun
-    const features = this.props.features
-
-    if (!testRun || !features) {
-      return <p>Loading...</p>
-    }
-
-    return <div className="columns">
-      <div className="column is-12">
-        <h2 className="subtitle">Features</h2>
-        <FeatureList features={features} />
+    return <div className="tile is-ancestor has-text-centered">
+      <div className="tile is-parent">
+        <div className="tile is-child box">
+          <p className="title">{this.props.features.items.length}</p>
+          <p className="subtitle">Features</p>
+        </div>
       </div>
     </div>
   }
 }
 
-export default TestRun
+export default TestRunHome
