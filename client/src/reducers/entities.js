@@ -1,6 +1,7 @@
 import {
   FETCH_PROJECTS_SUCCESS,
   FETCH_TEST_RUNS_SUCCESS,
+  FETCH_TEST_RUN_SUCCESS,
   FETCH_FEATURES_SUCCESS,
   FETCH_TEST_CASES_SUCCESS,
   FETCH_TEST_STEPS_SUCCESS,
@@ -21,6 +22,7 @@ const entities = (state = { projects: {}, testRuns: {}, features: {}, testCases:
     case FETCH_TEST_RUNS_SUCCESS:
       return merge({}, state, { testRuns: entitiesById(action.data) })
     case TEST_RUN_UPDATED:
+    case FETCH_TEST_RUN_SUCCESS:
       return merge({}, state, { testRuns: { [action.data.id]: action.data } })
     case FETCH_FEATURES_SUCCESS:
       return merge({}, state, { features: entitiesById(action.data) })

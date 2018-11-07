@@ -41,7 +41,7 @@ module Api
       def notify_client
         ActionCable.server.broadcast(LiveChannel::LIVE, {
           type: "TEST_RUN_UPDATED",
-          data: test_run.as_json,
+          data: TestRunSerializer.new(TestRun.last).as_json,
         })
       end
     end

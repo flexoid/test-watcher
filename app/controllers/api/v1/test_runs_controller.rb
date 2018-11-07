@@ -3,7 +3,7 @@ class Api::V1::TestRunsController < ApplicationController
 
   def index
     test_runs = project.test_runs.order(id: :desc)
-    render json: test_runs
+    render json: test_runs, each_serializer: TestRunCollectionSerializer
   end
 
   def show

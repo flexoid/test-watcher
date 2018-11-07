@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import TestRunLayout from "../../components/testRun/Layout"
-import { fetchFeatures } from "../../actions"
+import { fetchFeatures, fetchTestRun } from "../../actions"
 
 const features = (testRunId, state) => {
   const featuresForCurrentRun = state.featuresByRun[testRunId]
@@ -15,6 +15,7 @@ const features = (testRunId, state) => {
 
 class TestRunCurrent extends Component {
   componentDidMount() {
+    this.props.dispatch(fetchTestRun(this.props.testRunId))
     this.props.dispatch(fetchFeatures(this.props.testRunId))
   }
 

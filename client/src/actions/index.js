@@ -32,6 +32,22 @@ export const fetchTestRuns = (projectId) =>
     }
   }
 
+export const FETCH_TEST_RUN_REQUEST = 'FETCH_TEST_RUN_REQUEST'
+export const FETCH_TEST_RUN_SUCCESS = 'FETCH_TEST_RUN_SUCCESS'
+export const FETCH_TEST_RUN_FAILURE = 'FETCH_TEST_RUN_FAILURE'
+
+export const fetchTestRun = (testRunId) =>
+  async (dispatch) => {
+    dispatch({ type: FETCH_TEST_RUN_REQUEST, testRunId })
+
+    try {
+      const response = await axios.get(`/api/v1/test_runs/${testRunId}`)
+      dispatch({ type: FETCH_TEST_RUN_SUCCESS, testRunId, data: response.data })
+    } catch(error) {
+      dispatch({ type: FETCH_TEST_RUN_FAILURE, testRunId, error: error })
+    }
+  }
+
 export const FETCH_FEATURES_REQUEST = 'FETCH_FEATURES_REQUEST'
 export const FETCH_FEATURES_SUCCESS = 'FETCH_FEATURES_SUCCESS'
 export const FETCH_FEATURES_FAILURE = 'FETCH_FEATURES_FAILURE'
