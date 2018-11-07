@@ -26,11 +26,14 @@ class TestCaseList extends Component {
       </div>
       <div className="level-right">
         <div className="level-item">
-          <p className="is-size-7">{Math.round(testCase.duration)} sec</p>
+          {this.status(testCase)}
         </div>
-        <div className="level-item">
-          <p className="is-size-7">{testCase.status}</p>
-        </div>
+
+        {this.isFinished(testCase) &&
+          <div className="level-item">
+            <p className="is-size-7">{this.duration(testCase)} sec</p>
+          </div>
+        }
       </div>
 
       <div className={"testCasesModal modal" + (this.state.displaySteps ? " is-active" : "")}>
@@ -66,6 +69,32 @@ class TestCaseList extends Component {
     this.setState((state, props) => ({
       displaySteps: !state.displaySteps
     }))
+  }
+
+  duration(testCase) {
+    let createdAt = new Date(testCase.created_at)
+    let finishedAt = new Date(testCase.finished_at)
+
+    return Math.round((finishedAt - createdAt) / 1000)
+  }
+
+  status(testCase) {
+    let status = testCase.status
+    let statusClass
+
+    if (testCase.status == "passed") {
+      statusClass = "has-text-success"
+    } else if (testCase.status == "failed") {
+      statusClass = "has-text-danger"
+    } else {
+      statusClass = "has-text-info"
+      status = "pending"
+    }
+    return <p className={"is-size-7 " + (statusClass)}>{status}</p>
+  }
+
+  isFinished(testCase) {
+    return !!testCase.finished_at
   }
 }
 
