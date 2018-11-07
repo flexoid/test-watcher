@@ -1,5 +1,17 @@
+import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import TestRunList from "../../components/testRun/List";
+import { fetchTestRuns } from '../../actions';
+
+class TestRunVisibleList extends Component {
+  componentDidMount() {
+    this.props.dispatch(fetchTestRuns(this.props.project.id))
+  }
+
+  render() {
+    return <TestRunList {...this.props} />
+  }
+}
 
 const mapStateToProps = state => {
   return {
@@ -8,8 +20,8 @@ const mapStateToProps = state => {
   }
 }
 
-const VisibleTestRunList = connect(
+TestRunVisibleList = connect(
   mapStateToProps
-)(TestRunList)
+)(TestRunVisibleList)
 
-export default VisibleTestRunList
+export default TestRunVisibleList

@@ -7,7 +7,7 @@ class ProjectHome extends Component {
       <div className="column is-12">
         <h2 className="subtitle">Test runs</h2>
 
-        <TestRunVisibleList />
+        <TestRunVisibleList project={this.props.project} />
       </div>
     </div>
   }
