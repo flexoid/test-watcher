@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
-import TestRunVisibleList from "../../containers/testRun/VisibleList"
 
 class ProjectHome extends Component {
   render() {
     return <div className="columns">
       <div className="column is-12">
-        <h2 className="subtitle">Test runs</h2>
-
-        <TestRunVisibleList project={this.props.project} />
+        <h2 className="subtitle">Overview</h2>
       </div>
     </div>
   }

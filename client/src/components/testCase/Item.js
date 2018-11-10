@@ -82,9 +82,9 @@ class TestCaseList extends Component {
     let status = testCase.status
     let statusClass
 
-    if (testCase.status == "passed") {
+    if (testCase.status === "passed") {
       statusClass = "has-text-success"
-    } else if (testCase.status == "failed") {
+    } else if (testCase.status === "failed") {
       statusClass = "has-text-danger"
     } else {
       statusClass = "has-text-info"
