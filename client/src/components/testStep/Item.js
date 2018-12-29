@@ -22,8 +22,16 @@ class TestStep extends Component {
     }
 
     return <li key={step.id}>
-      {step.name}
-      {dataTable}
+      <div className="columns is-gapless">
+        <div className="column">{step.name}</div>
+      </div>
+      {dataTable && <div className="columns is-gapless">
+        <div className="column">{dataTable}</div>
+      </div>}
+      <div className="columns is-gapless is-size-7">
+        <div className="column">Started: {step.created_at}</div>
+        <div className="column">Finished: {step.finished_at}</div>
+      </div>
     </li>
   }
 }
