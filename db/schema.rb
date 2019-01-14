@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_03_213553) do
+ActiveRecord::Schema.define(version: 2019_01_14_173926) do
 
   create_table "features", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "hash_id", limit: 64, null: false, collation: "latin1_swedish_ci"
     t.bigint "test_run_id", null: false
-    t.string "name"
+    t.text "name"
     t.index ["hash_id"], name: "index_features_on_hash_id"
     t.index ["test_run_id", "hash_id"], name: "index_features_on_test_run_id_and_hash_id", unique: true
     t.index ["test_run_id"], name: "index_features_on_test_run_id"
@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 2018_10_03_213553) do
   create_table "test_cases", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "hash_id", limit: 64, null: false, collation: "latin1_swedish_ci"
     t.bigint "feature_id", null: false
-    t.string "name"
+    t.text "name"
     t.string "status", limit: 16, collation: "latin1_swedish_ci"
     t.json "properties"
     t.datetime "created_at", null: false
@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 2018_10_03_213553) do
   create_table "test_steps", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "hash_id", limit: 64, null: false, collation: "latin1_swedish_ci"
     t.bigint "test_case_id", null: false
-    t.string "name"
+    t.text "name"
     t.string "status", limit: 16, collation: "latin1_swedish_ci"
     t.json "properties"
     t.datetime "created_at", null: false
