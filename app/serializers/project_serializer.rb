@@ -3,7 +3,8 @@ class ProjectSerializer < ActiveModel::Serializer
 
   attribute :stats do
     {
-      test_cases: ProjectStats.new(object).test_cases
+      test_cases: ProjectStats.new(object).test_cases,
+      test_runs: object.test_runs.count,
     }
   end
 end
