@@ -15,14 +15,12 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: root
   password:
-  socket: /tmp/mysql.sock
 
 development:
   <<: *default
   database: test-watcher_development
-  password: root
   host: 127.0.0.1
-  port: 33062
+  port: 3306
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -30,9 +28,8 @@ development:
 test:
   <<: *default
   database: test-watcher_test
-  password: root
   host: 127.0.0.1
-  port: 33062
+  port: 3306
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
